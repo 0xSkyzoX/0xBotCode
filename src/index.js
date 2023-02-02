@@ -20,6 +20,8 @@ client.on('ready', () => {
 });
 
 client.on("guildMemberAdd", member => {
+  var role= member.guild.roles.cache.find(role => role.name === "Member");
+  member.roles.add(role)
   let wMessage = new EmbedBuilder()
     .setDescription("Welcome to Special Code Server! Don't forget to read the <#1007571455585832960> :wave:")
     .setAuthor({ name: `${member.user.tag} just joined!`, iconURL: member.user.avatarURL() })
@@ -36,12 +38,24 @@ client.on("messageCreate", (message) => {
       if (message.content.startsWith(prefix + "build")) {
         let args = message.content.split(" ")
         let channelID = args[2]
-        if (args[1] === "embed") {
+        if (args[1] === "-embed") {
           let Title = args[3] + " " + args[4]
-          
-        } else if (args[1] === 'message') {
+          let messageContentArgs = message.content.split('"')
+          console.log(messageContentArgs)
+          let messageEmbed = new EmbedBuilder()
+          .setTitle(Title)
+          .setDescription(`${messageContentArgs[1]}`)
+          let messageSucces = new EmbedBuilder()
+          .setTitle(`By ${message.author.tag}`)
+          .setDescription(`Message sent to <#${channelID}> Successfully !`)
+          .setColor(0x00FF00)
+          message.reply({ embeds: [messageSucces] })
+          client.channels.cache.get(channelID).send({ embeds: [messageEmbed] })
+        } 
+        if (args[1] === 'message') {
 
-        } else if (args[1] === 'messageDM') {
+        }
+        if (args[1] === 'messageDM') {
 
         }
       }
