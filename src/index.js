@@ -13,6 +13,7 @@ const prefix = "!";
 const fs = require('node:fs');
 const path = require('node:path');
 const { measureMemory } = require('node:vm');
+const { send } = require('node:process');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -20,7 +21,7 @@ client.on('ready', () => {
 });
 
 client.on("guildMemberAdd", member => {
-  var role= member.guild.roles.cache.find(role => role.name === "Member");
+  var role = member.guild.roles.cache.find(role => role.name === "Member");
   member.roles.add(role)
   let wMessage = new EmbedBuilder()
     .setDescription("Welcome to Special Code Server! Don't forget to read the <#1007571455585832960> :wave:")
@@ -43,21 +44,27 @@ client.on("messageCreate", (message) => {
           let messageContentArgs = message.content.split('"')
           console.log(messageContentArgs)
           let messageEmbed = new EmbedBuilder()
-          .setTitle(Title)
-          .setDescription(`${messageContentArgs[1]}`)
+            .setTitle(Title)
+            .setDescription(`${messageContentArgs[1]}`)
           let messageSucces = new EmbedBuilder()
-          .setTitle(`By ${message.author.tag}`)
-          .setDescription(`Message sent to <#${channelID}> Successfully !`)
-          .setColor(0x00FF00)
+            .setTitle(`By ${message.author.tag}`)
+            .setDescription(`Message sent to <#${channelID}> Successfully !`)
+            .setColor(0x00FF00)
           message.reply({ embeds: [messageSucces] })
           client.channels.cache.get(channelID).send({ embeds: [messageEmbed] })
-        } 
-        if (args[1] === 'message') {
+        } else { let ErrMessage = new EmbedBuilder().setTitle("Command Error!")
+        .setDescription(args[1]+', did you mean "-embed"? for learn more: **-help** ').setColor(0xFF0000)
+          message.channel.send({embeds: [ErrMessage]}).then(msg => {
+          setTimeout(() => msg.delete(), 14000)
+          setTimeout(() => message.delete(), 15000)
+        } ) }
+if (args[1] === '-message') {
 
-        }
-        if (args[1] === 'messageDM') {
+}
+if (args[1] === '-messageDM') {
 
-        }
+}
+        
       }
     }
   }
