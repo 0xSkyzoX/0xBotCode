@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, Events } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Events, Embed } = require('discord.js');
 const { EmbedBuilder } = require('@discordjs/builders')
 const client = new Client({
   intents: [
@@ -32,6 +32,18 @@ client.on("guildMemberAdd", member => {
   channel.send({ embeds: [wMessage] })
 })
 
+client.on("messageCreate", (message) => {
+  if (message.content === prefix+"help") {
+      let MessageEmbed = new EmbedBuilder()
+      .setTitle(client.user.username+"'s Command List")
+      .setAuthor({ name: `${message.guild.name}`, iconURL: message.guild.iconURL() })
+      .setThumbnail(message.author.avatarURL())
+      .setDescription("You can learn more: **!help (commands  name)**")
+      
+      message.channel.send({embeds: [MessageEmbed]})
+  }
+})
+
 // ownership Commands
 client.on("messageCreate", (message) => {
   if (message.member.roles.cache.has("1007601330287808542")) {
@@ -58,12 +70,12 @@ client.on("messageCreate", (message) => {
           setTimeout(() => msg.delete(), 14000)
           setTimeout(() => message.delete(), 15000)
         } ) }
-if (args[1] === '-message') {
+        if (args[1] === '-message') {
+          
+        }
+        if (args[1] === '-messageDM') {
 
-}
-if (args[1] === '-messageDM') {
-
-}
+        }
         
       }
     }
