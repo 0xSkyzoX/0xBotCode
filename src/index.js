@@ -8,12 +8,46 @@ const client = new Client({
     GatewayIntentBits.GuildMembers
   ]
 });
+
 const config = require("./data/config.json")
 const prefix = "!";
 const fs = require('node:fs');
 const path = require('node:path');
 const { measureMemory } = require('node:vm');
 const { send } = require('node:process');
+client.commands = new Collection();
+
+const commandsPath = path.join(__dirname, "commands")
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
+
+for (const file of commandFiles) {
+  const filePath = path.join(commandsPath, file);
+  const command = require(filePath);
+  if ('data' in command && 'execute' in command) {
+		client.commands.set(command.data.name, command);
+	} else {
+		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	}
+}
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	const command = interaction.client.commands.get(interaction.commandName);
+
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
+});
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -37,10 +71,23 @@ client.on("messageCreate", (message) => {
       let MessageEmbed = new EmbedBuilder()
       .setTitle(client.user.username+"'s Command List")
       .setAuthor({ name: `${message.guild.name}`, iconURL: message.guild.iconURL() })
-      .setThumbnail(message.author.avatarURL())
+      .setThumbnail(client.user.avatarURL())
       .setDescription("You can learn more: **!help (commands  name)**")
-      
-      message.channel.send({embeds: [MessageEmbed]})
+      .addFields({name: "!project", value: "project settings", inline: true}, {name: "!code", value: "Programming features", inline: true}, {name: "!team", value: "Coding team...", inline: true})
+      .addFields({name: "!post", value: "Posting Code, project...", inline: true}, {name: "!system", value: "System bot", inline: true}, {name: "!setting", value: "edit your SC user", inline: true})
+      .setTimestamp()
+      .setFooter({text: `requested by ${message.author.username}`, iconURL: message.author.avatarURL()})
+      message.channel.send(`<@${message.author.id}>, Look at your DMs for the help Command List!`)
+      message.author.send({embeds: [MessageEmbed]})
+  }
+})
+
+client.on("messageCreate", (message) => {
+  let args = message.content.split(" ");
+  if (message.content.startsWith(prefix + "help")) {
+    if(args[1] === "project") {
+      client.command.set()
+    }
   }
 })
 
@@ -76,7 +123,6 @@ client.on("messageCreate", (message) => {
         if (args[1] === '-messageDM') {
 
         }
-        
       }
     }
   }
