@@ -15,6 +15,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { measureMemory } = require('node:vm');
 const { send } = require('node:process');
+const express = require('express')
+const app = express()
+const port = 80;
+app.listen(port, console.log("App listening on port 80!"))
+app.get('/', async (req, res) => {
+  res.send("Bot is Online!")
+})
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands")
