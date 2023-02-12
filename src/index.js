@@ -8,7 +8,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers
   ]
 });
-
+//now change
 const config = require("./data/config.json")
 const prefix = "!";
 const fs = require('node:fs');
