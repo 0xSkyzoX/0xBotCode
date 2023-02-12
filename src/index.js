@@ -128,4 +128,4 @@ client.on("messageCreate", (message) => {
   }
 })
 
-client.login(config.TOKEN);
+client.login(process.env.TOKEN);
