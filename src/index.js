@@ -28,11 +28,8 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
   const command = require(filePath);
-  if ('data' in command && 'execute' in command) {
+
 		client.commands.set(command.data.name, command);
-	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-	}
 }
 
 client.on(Events.InteractionCreate, async interaction => {
@@ -77,9 +74,9 @@ client.on("messageCreate", (message) => {
       .setTitle(client.user.username+"'s Command List")
       .setAuthor({ name: `${message.guild.name}`, iconURL: message.guild.iconURL() })
       .setThumbnail(client.user.avatarURL())
-      .setDescription("You can learn more: **!help (commands  name)**")
-      .addFields({name: "!project", value: "project settings", inline: true}, {name: "!code", value: "Programming features", inline: true}, {name: "!team", value: "Coding team...", inline: true})
-      .addFields({name: "!post", value: "Posting Code, project...", inline: true}, {name: "!system", value: "System bot", inline: true}, {name: "!setting", value: "edit your SC user", inline: true})
+      .setDescription("You can learn more: **!help (command name)**")
+      .addFields({name: "!project", value: "Setup your project", inline: true}, {name: "!code", value: "Programming features", inline: true}, {name: "!team", value: "Setup your team", inline: true})
+      .addFields({name: "!post", value: "Posting Code, project...", inline: true}, {name: "!system", value: "System bot Commands", inline: true}, {name: "!setting", value: "edit your SC user", inline: true})
       .setTimestamp()
       .setFooter({text: `requested by ${message.author.username}`, iconURL: message.author.avatarURL()})
       message.channel.send(`<@${message.author.id}>, Look at your DMs for the help Command List!`)
