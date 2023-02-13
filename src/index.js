@@ -45,7 +45,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		
+		console.log(error)
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
@@ -76,7 +76,7 @@ client.on("messageCreate", (message) => {
       .setThumbnail(client.user.avatarURL())
       .setDescription("You can learn more: **!help (command name)**")
       .addFields({name: "!project", value: "Setup your project", inline: true}, {name: "!code", value: "Programming features", inline: true}, {name: "!team", value: "Setup your team", inline: true})
-      .addFields({name: "!post", value: "Posting Code, project...", inline: true}, {name: "!system", value: "System bot Commands", inline: true}, {name: "!setting", value: "edit your SC user", inline: true})
+      .addFields({name: "!post", value: "Posting Code, project...", inline: true}, {name: "!system", value: "System bot Commands", inline: true}, {name: "!setting", value: "edit your code user", inline: true})
       .setTimestamp()
       .setFooter({text: `requested by ${message.author.username}`, iconURL: message.author.avatarURL()})
       message.channel.send(`<@${message.author.id}>, Look at your DMs for the help Command List!`)
