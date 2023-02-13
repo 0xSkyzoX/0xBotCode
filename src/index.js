@@ -8,13 +8,11 @@ const client = new Client({
     GatewayIntentBits.GuildMembers
   ]
 });
-//now change
+//now change h
 const config = require("./data/config.json")
 const prefix = "!";
 const fs = require('node:fs');
 const path = require('node:path');
-const { measureMemory } = require('node:vm');
-const { send } = require('node:process');
 const express = require('express')
 const app = express()
 const port = 80;
@@ -50,7 +48,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
+		
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
