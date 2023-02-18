@@ -14,7 +14,7 @@ module.exports = class BuildChannelEmbedSubcommand extends BaseSubcommandExecuto
 
     let success_message = new EmbedBuilder()
       .setTitle(`Successfully Send Embed`)
-      .setDescription(`${interaction.user.username}, Message sent to <@${interaction.options.get('channel').value}>`)
+      .setDescription(`${interaction.user.username}, Message sent to <#${interaction.options.get('channel').value}>`)
       .setFooter({ text: client.user.username, iconURL: client.user.avatarURL() })
       .setColor("Green")
       .setTimestamp()
