@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const BaseSlashSubcommand = require('../../utils/BaseSlashSubcommand');
 const colors = require('../../data/colors') 
 
@@ -36,7 +36,7 @@ module.exports = class BuildSubcommand extends BaseSlashSubcommand {
         group.setName('embed').setDescription("Build a Message Embed")
         .addSubcommand((subcommand) =>
         subcommand.setName('channel').setDescription('Channel Message Embed')
-        .addChannelOption(option => option.setName("channel").setDescription("Select a channel").setRequired(true))
+        .addChannelOption(option => option.setName("channel").setDescription("Select a channel").setRequired(true).addChannelTypes(ChannelType.GuildText))
         .addStringOption(option => option.setName("title").setDescription("Add an embed title").setRequired(true))
         .addStringOption(option => option.setName('content').setDescription("Write the message embed content").setRequired(true))
         .addStringOption(option => option.setName("color").setDescription("Select a embed color").setRequired(true).addChoices(...colors))
@@ -53,7 +53,7 @@ module.exports = class BuildSubcommand extends BaseSlashSubcommand {
         .setDescription("Create a Message")
         .addSubcommand(subcommand => 
           subcommand.setName('channel').setDescription('Channel Message')
-          .addChannelOption(option => option.setName('channel').setDescription('Select a channel').setRequired(true))
+          .addChannelOption(option => option.setName('channel').setDescription('Select a channel').setRequired(true).addChannelTypes(ChannelType.GuildText))
           .addStringOption(option => option.setName('content').setDescription('Write the message content').setRequired(true))
         )
         .addSubcommand(subcommand => 

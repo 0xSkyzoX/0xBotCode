@@ -29,6 +29,36 @@ app.get('/', async (req, res) => {
   res.send("Bot is Online!")
 });
 
+async function main() {
+  client.slashCommands = new Collection();
+    client.slashSubcommands = new Collection();
+    await registerCommands(client, '../commands');
+    await registerSubcommands(client);
+    const slashCommandsJson = client.slashCommands.map((cmd) =>
+      cmd.getSlashCommandJSON()
+    );
+    const slashSubcommandsJson = client.slashSubcommands.map((cmd) =>
+      cmd.getSlashCommandJSON()
+    );
+  try {
+    rest.put(Routes.applicationCommands(set.CLIENT_ID), {
+      body: [...slashCommandsJson, ...slashSubcommandsJson],
+    });
+    const registeredSlashCommands = await rest.get(
+      Routes.applicationCommands(set.CLIENT_ID, set.GUILD_ID)
+    );
+    console.log(registeredSlashCommands);
+   await client.login(process.env.TOKEN);
+  } catch (err) {
+    console.log(err);
+  }
+    
+  
+  
+}
+
+main();
+
 client.on('interactionCreate', (interaction) => {
   if (interaction.isChatInputCommand()) {
     const { commandName } = interaction;
@@ -54,48 +84,15 @@ client.on('interactionCreate', (interaction) => {
       }
       return;
     }
-
     if (cmd) {
       cmd.run(client, interaction);
     } else {
       interaction.reply({ content: 'This command has no run method.' });
     }
   }
-  
-  
 })
 
 
-
-async function main() {
-  client.slashCommands = new Collection();
-    client.slashSubcommands = new Collection();
-    await registerCommands(client, '../commands');
-    await registerSubcommands(client);
-    console.log(client.slashSubcommands);
-    const slashCommandsJson = client.slashCommands.map((cmd) =>
-      cmd.getSlashCommandJSON()
-    );
-    const slashSubcommandsJson = client.slashSubcommands.map((cmd) =>
-      cmd.getSlashCommandJSON()
-    );
-  try {
-    await rest.put(Routes.applicationCommands(set.CLIENT_ID), {
-      body: [...slashCommandsJson, ...slashSubcommandsJson],
-    });
-   await client.login(process.env.TOKEN);
-  } catch (err) {
-    console.log(err);
-  } finally {
-    const registeredSlashCommands = await rest.get(
-      Routes.applicationCommands(set.CLIENT_ID, set.GUILD_ID)
-    );
-    console.log(registeredSlashCommands);
-  }
-  
-}
-
-main();
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("Special Code")

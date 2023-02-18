@@ -12,11 +12,10 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
             },
             {
                 name: "remove",
-                subcommand: ["welcome"]
+                subcommands: ["welcome"]
             }
             ],
             []
-            
         )
     }
 
@@ -29,9 +28,9 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
             .addSubcommand(
                 (subcommand) => 
                 subcommand.setName('welcome')
-                .setDescription("add a welcome channel to your server")
+                .setDescription("add a welcome system to your server")
                 .addChannelOption(option => 
-                    option.setName("channel").setDescription("select the welcome channel")
+                    option.setName("channel").setDescription("select the welcome system")
                     .setRequired(true).addChannelTypes(ChannelType.GuildText)
                     )
                 .addChannelOption(option => 
@@ -49,7 +48,7 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
         .addSubcommandGroup(group => 
             group.setName("remove").setDescription('remove a system command')
             .addSubcommand(subcommand => 
-                subcommand.setName('welcome').setDescription('remove a welcome channel from your server')
+                subcommand.setName('welcome').setDescription('remove a welcome system from your server')
                 )
             )
             .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
