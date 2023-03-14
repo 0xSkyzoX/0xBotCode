@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, Events, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Events, EmbedBuilder, ActivityType } = require('discord.js');
 const { config } = require('dotenv');
 config();
 const client = new Client({
@@ -10,7 +10,6 @@ const client = new Client({
   ]
 });
 const TOKEN = process.env.TOKEN
-
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
 const fs = require('node:fs');
@@ -91,12 +90,13 @@ client.on('interactionCreate', (interaction) => {
     }
   }
 })
-
-
+const UpdateChannel = require('./events/UpdateChannel')
 client.on('ready', () => {
+  UpdateChannel(client)
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity("Special Code")
+  client.user.setPresence({activities: [{name: `/help`, type: ActivityType.Watching}], status: "idle"})
 });
+
 
 
 

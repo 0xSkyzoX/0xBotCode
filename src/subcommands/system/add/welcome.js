@@ -6,7 +6,6 @@ module.exports = class AddWelcomeSubcommand extends BaseSubcommandExecutor {
     constructor(baseCommand, group, name) {
         super(baseCommand, group, 'welcome')
     }
-
     async run(client, interaction) {
 
         let success_message = new EmbedBuilder()

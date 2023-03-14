@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const BaseSlashSubcommand = require('../../utils/BaseSlashSubcommand');
+const logTypes = require('../../data/logTypes.js')
 
 module.exports = class SystemSubcommand extends BaseSlashSubcommand {
     constructor() {
@@ -13,6 +14,9 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
             {
                 name: "remove",
                 subcommands: ["welcome"]
+            }, {
+                name: "add",
+                subcommands: ["logs"]
             }
             ],
             []
@@ -43,6 +47,15 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                     .setDescription("Add a default role to any new member")
                     .setRequired(false)
                     )
+            )
+            .addSubcommand((subcommand) => 
+            subcommand.setName("logs").setDescription('add a log channel')
+            .addChannelOption(option => 
+                option.setName("channel")
+                .setDescription('select a channel for the logs')
+                .addChannelTypes(ChannelType.GuildText)
+                .setRequired(true)
+                )
             )
             )
         .addSubcommandGroup(group => 

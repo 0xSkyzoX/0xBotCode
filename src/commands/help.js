@@ -9,9 +9,10 @@ module.exports = class helpSlashCommand extends BaseSlashCommand {
 
     run(client, interaction) {
         let helpMessageEmbed = new EmbedBuilder()
+            .setURL('https://codexbot.xyz/')
             .setTitle(client.user.username + "'s Command List")
             .setAuthor({ name: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL() })
-            .setThumbnail(client.user.avatarURL())
+            .setThumbnail(client.user.avatarURL({dynamic: true}))
             .setDescription("You can learn more: **/help (command name)**")
             .addFields({ name: "/project :bar_chart:", value: "setup a project", inline: true }, { name: "/code :computer:", value: "coding features", inline: true }, { name: "/team :busts_in_silhouette:", value: "setup a team", inline: true })
             .addFields({ name: "/post :envelope_with_arrow:", value: "create a post", inline: true }, { name: "/system :gear:", value: "system Commands", inline: true }, { name: "/build :hammer:", value: "create a message", inline: true })
