@@ -51,11 +51,7 @@ async function main() {
   } catch (err) {
     console.log(err);
   }
-    
-  
-  
 }
-
 main();
 
 client.on('interactionCreate', (interaction) => {
