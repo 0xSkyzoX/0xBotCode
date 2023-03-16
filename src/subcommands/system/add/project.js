@@ -1,5 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, Embed} = require('discord.js')
-const BaseSlashSubcommandExecutor = require('../../../utils/BaseSlashSubcommandExecutor')
+const BaseSlashSubcommandExecutor = require('../../../utils/BaseSubcommandExecutor')
 const Project = require('../../../data/setProjectData')
 
 module.exports = class addProjectSlashSubcommand extends BaseSlashSubcommandExecutor {

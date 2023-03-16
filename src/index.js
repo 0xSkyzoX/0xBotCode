@@ -93,9 +93,6 @@ client.on('ready', () => {
   client.user.setPresence({activities: [{name: `/help`, type: ActivityType.Watching}], status: "idle"})
 });
 
-
-
-
 client.on("guildMemberAdd", async member => {
   let guildData = await WelcomeData.find({guild_id: member.guild.id})
   if (guildData[0].guild_id == member.guild.id) {
@@ -113,6 +110,20 @@ client.on("guildMemberAdd", async member => {
     }
   }
 })
-
+const moment = require('moment')
+const LeaveData = require('./data/leaveMemberData.js')
+client.on("guildMemberRemove", async member => {
+  const data = await LeaveData.findOne({guild_id: member.guild.id})
+  if (data) {
+    let leave_message = new EmbedBuilder()
+    .setDescription(`ID: ${member.user.id} \n Joined At : ${moment(member.guild.joinedAt).format('DD/MM/YYYY')}`)
+    .setAuthor({ name: `${member.user.tag} just Leave!`, iconURL: member.user.avatarURL() })
+    .setColor("Purple")
+    .setTimestamp()
+    client.channels.cache.get(data.channel_id).send({embeds: [leave_message]})
+  } else {
+    console.log('No Channel')
+  }
+})
 
 mongoose.connect(set.MONGO_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true })

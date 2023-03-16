@@ -29,6 +29,10 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                 {
                     name: "add",
                     subcommands: ["project"]
+                },
+                {
+                    name: "add",
+                    subcommands: ["leave"]
                 }
             ],
             []
@@ -112,9 +116,20 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                     option.setName('channel')
                     .setDescription('add a channel for sending projects')
                     .addChannelTypes(ChannelType.GuildText)
+                    .setRequired(true)
                     )
                     
                    )
+                   .addSubcommand((subcommand) => 
+                    subcommand.setName('leave')
+                    .setDescription('add leave channel for your server')
+                    .addChannelOption(option => 
+                        option.setName('channel')
+                        .setDescription('select the channel for leave')
+                        .addChannelTypes(ChannelType.GuildText)
+                        .setRequired(true)
+                        )
+                    )
             )
             .addSubcommandGroup(group =>
                 group.setName("remove").setDescription('remove a system command')
@@ -126,6 +141,7 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                         .setDescription('remove the report channel from CodeX!')
                         )
             )
+
 
             .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
             .setDMPermission(false)
