@@ -1,8 +1,8 @@
 const {SlashCommandBuilder, EmbedBuilder, Base} = require('discord.js')
-const BaseSlashSubcommand = require('../../../utils/BaseSlashSubcommand')
+const BaseSlashSubcommandExecutor = require('../../../utils/BaseSubcommandExecutor')
 const ReportData = require("../../../data/reportDatabase")
 
-module.exports = class addReportChannel extends BaseSlashSubcommand {
+module.exports = class addReportChannel extends BaseSlashSubcommandExecutor {
      constructor(baseCommand, group, name) { 
           super(baseCommand, group, name)
      }

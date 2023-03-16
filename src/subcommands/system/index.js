@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const BaseSlashSubcommand = require('../../utils/BaseSlashSubcommand');
 const logTypes = require('../../data/logTypes.js')
-
+const ColorsList = require('../../data/colors')
 module.exports = class SystemSubcommand extends BaseSlashSubcommand {
     constructor() {
         super(
@@ -25,6 +25,10 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                 {
                     name: "remove",
                     subcommands: ["report"]
+                },
+                {
+                    name: "add",
+                    subcommands: ["project"]
                 }
             ],
             []
@@ -75,6 +79,42 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                                     .setRequired(true)
                             )
                     )
+                    /*
+                    .addSubcommand((subcommand) => 
+                    subcommand.setName('project').setDescription('add project channel')
+                    .addStringOption(option => 
+                        option.setName('title')
+                        .setDescription('add a title for your project')
+                        .setRequired(true)
+                        )
+                    .addStringOption(option => 
+                        option.setName('descriptoin')
+                        .setDescription('add description for project')
+                        .setRequired(true)
+                        )
+                    .addStringOption(option =>
+                        option.setName('color')
+                        .setDescription('choose a color for project')
+                        .setChoices(...ColorsList)
+                        .setRequired(true)
+                        )
+                    .addStringOption(option => 
+                        option.setName('url')
+                        .setDescription('add your project url')
+                        .setRequired(true)
+                        )
+                    )
+                    */
+                   .addSubcommand((subcommand) => 
+                   subcommand.setName('project')
+                   .setDescription('add project system to your server')
+                   .addChannelOption(option =>
+                    option.setName('channel')
+                    .setDescription('add a channel for sending projects')
+                    .addChannelTypes(ChannelType.GuildText)
+                    )
+                    
+                   )
             )
             .addSubcommandGroup(group =>
                 group.setName("remove").setDescription('remove a system command')
