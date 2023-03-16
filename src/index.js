@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, Events, EmbedBuilder, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActivityType } = require('discord.js');
 const { config } = require('dotenv');
 config();
 const client = new Client({
