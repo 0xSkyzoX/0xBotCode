@@ -11,7 +11,7 @@ Dev: ["0xSkyzoX"] [@SkyzoX#9139]
 leave your name here ex: Dev: "github name" [discord name+tag]
 
 <h1>All Rights go to Special Code Team</h1>
-`Commands:`
+Commands:<br />
  - System
  - Build
 
