@@ -24,14 +24,14 @@ module.exports = class LeaveSlashSubcommand extends BaseSubcommandExecutor {
                 .setFooter({text: `requested by ${interaction.user.name}`, iconURL: interaction.user.avatarURL()})
                 .setTimestamp()
           if (data?.guild_id == interaction.guild.id) {
-               return interaction.reply({embeds: [faild_message]})
+               return interaction.reply({embeds: [faild_message], ephemeral: true})
           } else {
                const newData = new LeaveData({
                     guild_id: interaction.guild.id,
                     channel_id: interaction.options.get('channel').value
                })
                await newData.save();
-               interaction.reply({embeds: [success_message]})
+               interaction.reply({embeds: [success_message], ephemeral: true})
                
           }
      }

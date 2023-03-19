@@ -15,18 +15,18 @@ module.exports = class addProjectSlashSubcommand extends BaseSlashSubcommandExec
           .setTimestamp()
           let failed_message = new EmbedBuilder()
           .setTitle('Failed Creating...')
-          .setDescription('Error while trying to add project system. \n\n Maybe there are already project system at this server? \n Channel: <#',+ data.channel_id+">")
+          .setDescription('Error while trying to add project system. \n\n Maybe there are already project system at this server? \n try : `/system remove project`')
           .setColor('Red')
           .setTimestamp()
-          if (data) {
+          if (!data) {
                const newData = new Project({
                     channel_id: interaction.options.get('channel').value,
                     guild_id: interaction.guild.id
                })
                newData.save();
-               return interaction.reply({embeds: [success_message]})
+               return interaction.reply({embeds: [success_message], ephemeral: true})
           } else {
-               return interaction.reply({embeds: [failed_message]})
+               return interaction.reply({embeds: [failed_message], ephemeral: true})
           }
      }
 }

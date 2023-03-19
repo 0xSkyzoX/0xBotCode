@@ -21,7 +21,7 @@ module.exports = class LogsChannelSubcommand extends BaseSubcommandExecutor {
                 .setColor('Red')
                 .setFooter({text: `requested by ${interaction.user.name}`, iconURL: interaction.user.avatarURL()})
                 .setTimestamp()
-                interaction.reply({embeds: [faild_message]})
+                interaction.reply({embeds: [faild_message], ephemeral: true})
             } else {
                 await Logs.save();
                 let success_message = new EmbedBuilder()
@@ -30,7 +30,7 @@ module.exports = class LogsChannelSubcommand extends BaseSubcommandExecutor {
                 .setDescription(`System log have been created in <#${interaction.options.get('channel').value}>`)
                 .setFooter({text: `requested by ${interaction.user.name}`, iconURL: interaction.user.avatarURL()})
                 .setTimestamp()
-                interaction.reply({embeds: [success_message]})
+                interaction.reply({embeds: [success_message], ephemeral: true})
             }
         } catch(err) {
             

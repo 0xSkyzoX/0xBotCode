@@ -22,7 +22,7 @@ module.exports = class removeReportSlashSubcommand extends BaseSlashSubcommand {
           .setTimestamp()
           if (data) {
                await ReportData.findOneAndDelete({guild_id: interaction.guild.id})
-               return interaction.reply({embeds: [success_message]})
+               return interaction.reply({embeds: [success_message], ephemeral: true})
           } else {
                return interaction.reply({embeds: [failed_message], ephmeral: true})
           }

@@ -33,6 +33,14 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                 {
                     name: "add",
                     subcommands: ["leave"]
+                },
+                {
+                    name: "remove",
+                    subcommands: ["leave"]
+                },
+                {
+                    name: "remove",
+                    subcommands: ["project"]
                 }
             ],
             []
@@ -140,9 +148,15 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                         subcommand.setName('report')
                         .setDescription('remove the report channel from CodeX!')
                         )
+                    .addSubcommand(subcommand => 
+                        subcommand.setName("leave")
+                        .setDescription("remove leave system from this server")
+                        )
+                    .addSubcommand(sub => 
+                        sub.setName("project")
+                        .setDescription("remove project system from this server")
+                        )
             )
-
-
             .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
             .setDMPermission(false)
     }

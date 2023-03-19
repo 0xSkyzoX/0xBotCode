@@ -25,9 +25,9 @@ module.exports = class addReportChannel extends BaseSlashSubcommandExecutor {
                     guild_id: interaction.guild.id
                })
                newData.save()
-               return interaction.reply({embeds: [success_message]})
+               return interaction.reply({embeds: [success_message], ephemeral: true})
           } else {
-               return interaction.reply({embeds: [error_message]})
+               return interaction.reply({embeds: [error_message], ephemeral: true})
           }
      }
 }

@@ -24,9 +24,9 @@ module.exports = class RemoveWelcomeSubcommand extends BaseSubcommandExecutor {
         let guildID = interaction.guild.id;
         if (guildData[0]?.guild_id === guildID) {
             await WelcomeData.findOneAndRemove({ guild_id: guildID })
-            return interaction.reply({ embeds: [success_message], ephmeral: true })
+            return interaction.reply({ embeds: [success_message], ephemeral: true })
         } else {
-            return interaction.reply({ embeds: [error_message], ephmeral: true })
+            return interaction.reply({ embeds: [error_message], ephemeral: true })
         }
     }
 }
