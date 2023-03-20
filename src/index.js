@@ -85,6 +85,7 @@ client.on('interactionCreate', (interaction) => {
       interaction.reply({ content: 'This command has no run method.' });
     }
   }
+  
 })
 const UpdateChannel = require('./events/UpdateChannel')
 client.on('ready', () => {
@@ -125,5 +126,5 @@ client.on("guildMemberRemove", async member => {
     console.log('No Channel')
   }
 })
-
+mongoose.set('strictQuery', false);
 mongoose.connect(set.MONGO_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true })

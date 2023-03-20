@@ -41,6 +41,10 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                 {
                     name: "remove",
                     subcommands: ["project"]
+                },
+                {
+                    name: "remove",
+                    subcommands: ["logs"]
                 }
             ],
             []
@@ -155,6 +159,10 @@ module.exports = class SystemSubcommand extends BaseSlashSubcommand {
                     .addSubcommand(sub => 
                         sub.setName("project")
                         .setDescription("remove project system from this server")
+                        )
+                    .addSubcommand(sub => 
+                        sub.setName("logs")
+                        .setDescription("Remove Logs System from this Bot")
                         )
             )
             .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
