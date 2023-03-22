@@ -87,6 +87,7 @@ client.on('interactionCreate', (interaction) => {
   }
   
 })
+
 const UpdateChannel = require('./events/UpdateChannel')
 client.on('ready', () => {
   UpdateChannel(client)

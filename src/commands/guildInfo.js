@@ -12,7 +12,8 @@ module.exports = class GuildInfoSlashCommand extends BaseSlashCommand {
           .setTitle("Guild Details")
           .setAuthor({name: interaction.guild.name, iconURL: interaction.guild.iconURL()})
           .setThumbnail(client.user.avatarURL())
-          .addFields({name: "members:", value: `${interaction.guild.memberCount}`, inline: true}, {name: "owner:", value:`${ownerUser.user.tag}`, inline: true})
+          .addFields({name: "members:", value: `${interaction.guild.memberCount}`, inline: true}, {name: "owner:", value:`${ownerUser.user.tag}`, inline: true}, {name: "created at:", value: `${client.guild.createdAt}`})
+          .setColor("Blue")
           return interaction.reply({embeds: [info_embed]})
      }
      getSlashCommandJSON() {
