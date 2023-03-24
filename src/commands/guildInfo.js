@@ -6,15 +6,15 @@ module.exports = class GuildInfoSlashCommand extends BaseSlashCommand {
           super("guildinfo")
      }
      run(client, interaction) {
-          var ownerID =interaction.guild.ownerId
-          var ownerUser = interaction.guild.members.cache.get(ownerID)
+          
           let info_embed = new EmbedBuilder()
           .setTitle("Guild Details")
           .setAuthor({name: interaction.guild.name, iconURL: interaction.guild.iconURL()})
           .setThumbnail(client.user.avatarURL())
-          .addFields({name: "members:", value: `${interaction.guild.memberCount}`, inline: true}, {name: "owner:", value:`${ownerUser.user.tag}`, inline: true}, {name: "created at:", value: `${client.guild.createdAt}`})
+          .addFields({name: "members:", value: `${interaction.guild.memberCount}`, inline: true}, {name: "owner:", value:`Testing`, inline: true}, {name: "created at:", value: `Test`})
           .setColor("Blue")
-          return interaction.reply({embeds: [info_embed]})
+          console.log(ownerUser)
+          return interaction.reply({content: "This Command is not Available now!"})
      }
      getSlashCommandJSON() {
           return new SlashCommandBuilder()
